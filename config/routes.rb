@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users, sign_out_via: [:get, :delete]
+
+  root 'home#index'
+
+  # Provider stuff
+  match '/auth/sso/authorize' => 'auth#authorize', via: :all
+  match '/auth/sso/access_token' => 'auth#access_token', via: :all
+  match '/auth/sso/user' => 'auth#user', via: :all
+  match '/oauth/token' => 'auth#access_token', via: :all
 end
